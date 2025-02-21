@@ -1,20 +1,18 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn import linear_model
+from sklearn import linear_model, metrics
+from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 
-def load_data(label_col="acc"):
-    candidate_label_cols = ["acc", "acc_rate", "ln_acc_rate"]
+CANDIDATE_LABEL_COLS = ["acc", "acc_rate", "ln_acc_rate"]
+LABEL_COL = "acc"
 
-    if label_col not in candidate_label_cols:
-        raise ValueError(f"label_col must be one of {candidate_label_cols}")
-
+def load_data():
     df = pd.read_csv("data_final_cleaned.csv")
     df = df.drop(columns=["rue_1", "rue_2", "int_no"])
 
     # Drop other label columns
-    df = df.drop(columns=[c for c in candidate_label_cols if c != label_col])
+    df = df.drop(columns=[c for c in CANDIDATE_LABEL_COLS if c != LABEL_COL])
 
     return df
 
@@ -29,8 +27,11 @@ def prepare_data(df):
 
     # Scaler
     scaler = StandardScaler()
+    y = df[LABEL_COL]
+    df = df.drop(columns=[LABEL_COL])
     scaler.fit(df)
     df = pd.DataFrame(scaler.transform(df), columns=df.columns)
+    df[LABEL_COL] = y
 
     return df
 
@@ -47,3 +48,11 @@ def split_data(df, label_col, include_val=False):
         return X_train, y_train, X_val, y_val, X_test, y_test
 
     return X_train, y_train, X_test, y_test
+
+
+def evaluate_predictions(model, X_test, y_test):
+    y_pred = model.predict(X_test)
+    print("MAE:", metrics.mean_absolute_error(y_test, y_pred))
+    print("MSE:", metrics.mean_squared_error(y_test, y_pred))
+    print("RMSE:", metrics.mean_squared_error(y_test, y_pred))
+    print("R2:", metrics.r2_score(y_test, y_pred))
