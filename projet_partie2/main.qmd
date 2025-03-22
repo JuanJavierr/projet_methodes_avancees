@@ -26,7 +26,7 @@ lang: fr
 - Moran's Global/Local I: https://www.paulamoraga.com/book-spatial/spatial-autocorrelation.html#global-morans-i
 - Spatial Lag Models: https://geo200cn.github.io/spatialreg.html#Spatial_lag_model
 - Spatial Error Models: https://geo200cn.github.io/spatialreg.html#Spatial_error_model
-- GWR: https://www.publichealth.columbia.edu/research/population-health-methods/geographically-weighted-regressionna
+- GWR: https://www.publichealth.columbia.edu/research/population-health-methods/geographically-weighted-regression
 
 ## Configuration de l'Environnement
 
@@ -312,6 +312,9 @@ gwr_model <- gwr(model_formula, data = sp_data, coords = coordinates(sp_data), b
 print(gwr_model)
 ```
 
+
+
+# Non fonctionnel à partir d'ici
 ## Évaluation du Modèle avec la Validation Croisée
 
 Nous évaluons la performance de nos modèles en utilisant la validation croisée k-fold, qui fournit des métriques de performance plus fiables.
