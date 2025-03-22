@@ -47,7 +47,7 @@ library(sp)       # Classes and methods for spatial data
 library(sf)       # Simple Features for R
 library(mapview)  # Interactive viewing of spatial data in R
 
-base_path <- "/Users/Xavier/Maitrise - Cours/Hiver 2025/Méthodes avancées en exploitation de données/code/Road_Safety/prog/data"
+base_path <- "/Users/Xavier/Maitrise - Cours/Hiver 2025/Méthodes avancées en exploitation de données/code/projet_methodes"
 ```
 
 ## Chargement et Préparation des Données
